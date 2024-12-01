@@ -31,10 +31,10 @@ def ultrasound_get_curr_supply_and_supply_differential_since_merge() -> (
     stats = stats.json()
 
     # get supply at merge
-    supply_at_merge = round(stats["since_merge"][0]["supply"],2)
+    supply_at_merge = round(stats["since_merge"][0]["supply"], 2)
 
     # get current supply
-    curr_supply = round(stats["since_merge"][-1]["supply"],2)
+    curr_supply = round(stats["since_merge"][-1]["supply"], 2)
 
     # get the eth price
     return supply_at_merge, curr_supply, curr_supply - supply_at_merge

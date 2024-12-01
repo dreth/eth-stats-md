@@ -4,28 +4,28 @@ This project is a set of scripts which generate some basic data for Ethereum. Ex
 
 ## Running the scripts
 
-First clone the repository:
-
-```shell
-git clone https://github.com/dreth/eth-stats-md.git
-```
-
 ### Using docker
 
 You can use docker to run the scripts, pulling the image from docker hub:
 
 ```shell
-docker run dreth/eth-stats-md
+docker run -v ./:/app/generated dreth/eth-stats-md
 ```
 
 You can use docker to run the scripts:
 
 ```shell
 docker build -t eth-stats .
-docker run eth-stats
+docker run -v ./:/app/generated eth-stats
 ```
 
 ### Using python
+
+First clone the repository:
+
+```shell
+git clone https://github.com/dreth/eth-stats-md.git
+```
 
 You can use python directly to run the scripts creating a simple virtual environment, this project uses python 3.13.0:
 

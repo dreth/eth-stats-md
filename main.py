@@ -1,3 +1,4 @@
+import logging as log
 import os
 from datetime import datetime, timezone
 
@@ -11,17 +12,31 @@ from data.ultrasound_money import (
 
 # Generate the markdown text for the comment
 def generate_comment() -> str:
-    # get ultrasound stats
-    eth_price, timestamp, eth_price = ultrasound_get_eth_price()
-    eth_avg_1d, eth_avg_7d, eth_avg_30d = ultraasound_get_average_eth_price()
-    eth_supply_at_merge, eth_curr_supply, eth_supply_diff = (
-        ultrasound_get_curr_supply_and_supply_differential_since_merge()
-    )
+    # wrap the commands in a try block to catch any exceptions
 
-    # get etf tables
-    tbl_legend, tbl_data = get_eth_etf_table()
-    tbl_legend = tbl_legend.to_markdown(index=False)
-    tbl_data = tbl_data.to_markdown(index=False)
+    try:
+        # get ultrasound stats
+        log.info("Getting the Ethereum price from ultrasound.money")
+        eth_price, timestamp, eth_price = ultrasound_get_eth_price()
+
+        log.info("Getting the average Ethereum price from ultrasound.money")
+        eth_avg_1d, eth_avg_7d, eth_avg_30d = ultraasound_get_average_eth_price()
+
+        log.info(
+            "Getting the current supply and supply differential since merge from ultrasound.money"
+        )
+        eth_supply_at_merge, eth_curr_supply, eth_supply_diff = (
+            ultrasound_get_curr_supply_and_supply_differential_since_merge()
+        )
+
+        # get etf tables
+        log.info("Getting the ETF table from farside.co.uk")
+        tbl_legend, tbl_data = get_eth_etf_table()
+        tbl_legend = tbl_legend.to_markdown(index=False)
+        tbl_data = tbl_data.to_markdown(index=False)
+    except Exception as e:
+        log.error(f"An error occurred: {e}")
+        return None
 
     return f"""
 # Ethereum stats
@@ -64,4 +79,10 @@ if __name__ == "__main__":
         ),
         "w",
     ) as f:
-        f.write(generate_comment())
+        # generate the information
+        log.info("Generating information")
+        comment = generate_comment()
+
+        # write the information to the file
+        f.write(comment)
+        log.info("Markdown file generated successfully")

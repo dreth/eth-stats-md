@@ -1,3 +1,5 @@
+from io import StringIO
+
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -26,7 +28,7 @@ def get_eth_etf_table() -> tuple[pd.DataFrame, pd.DataFrame]:
         table_html = table_element.get_attribute("outerHTML")
 
         # Convert the HTML table to a pandas DataFrame
-        df = pd.read_html(table_html)[0]
+        df = pd.read_html(StringIO(table_html))[0]
 
         # modify the columns so that col1 is properly named
         cols = df.columns
