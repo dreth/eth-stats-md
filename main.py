@@ -32,6 +32,9 @@ def generate_comment() -> str:
         # get etf tables
         log.info("Getting the ETF table from farside.co.uk")
         tbl_legend, tbl_data = get_eth_etf_table()
+        total_flow = round(tbl_legend["Flow"].sum(), 2)
+        total_flow_3d = round(tbl_data["Total"].iloc[-3:].sum(), 2)
+        total_flow_last_recorded_day = round(tbl_data.iloc[:, 3].sum(), 2)
         tbl_legend = tbl_legend.to_markdown(index=False)
         tbl_data = tbl_data.to_markdown(index=False)
     except Exception as e:
@@ -39,7 +42,7 @@ def generate_comment() -> str:
         return None
 
     return f"""
-# Ethereum stats
+# ETH stats
 
 - UTC Timestamp: {timestamp}
 
@@ -55,17 +58,23 @@ Source: https://ultrasound.money
 - Supply at merge: {eth_supply_at_merge} ETH
 - Current supply: {eth_curr_supply} ETH
 - Supply differential since merge: {eth_supply_diff} ETH
+- Total inflation (%) since merge: {round(eth_supply_diff / eth_supply_at_merge * 100,3)}%
 
 ## ETF Flow (in millions of USD)
 
+- Total ETF Flow: {total_flow} million USD
+- Total ETF Flow over the last 3 days: {total_flow_3d} million USD
+- Total ETF Flow on the last recorded day: {total_flow_last_recorded_day} million USD
+
 Source: https://farside.co.uk/eth
+
 Full historical table: https://farside.co.uk/ethereum-etf-flow-all-data/
 
 ### Basic ETF info
 
 {tbl_legend}
 
-### ETF Flow
+### ETF Flow (last 3 days)
 
 {tbl_data}
     """
@@ -82,6 +91,11 @@ if __name__ == "__main__":
         # generate the information
         log.info("Generating information")
         comment = generate_comment()
+
+        # if the comment is None, exit the program
+        if comment is None:
+            log.error("Error: Exiting program")
+            exit(1)
 
         # write the information to the file
         f.write(comment)

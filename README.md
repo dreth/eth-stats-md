@@ -92,7 +92,7 @@ Full historical table: https://farside.co.uk/ethereum-etf-flow-all-data/
 | Grayscale | ETHE     | 2.50% | 9,199.3* |
 | Grayscale | ETH      | 0.15% | 1,022.5* |
 
-### ETF Flow
+### ETF Flow (Last 3 reported days)
 
 | Date        | Blackrock   | Fidelity   | Bitwise   | 21 Shares   | VanEck   | Invesco   | Franklin   | Grayscale   | Grayscale   | Total   |
 |:------------|:------------|:-----------|:----------|:------------|:---------|:----------|:-----------|:------------|:------------|:--------|
