@@ -1,3 +1,4 @@
+import logging as log
 import re
 from io import StringIO
 
@@ -84,16 +85,14 @@ def process_dataframes(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     tbl_data = tbl_data.iloc[:-1]
 
     # format dates, e.g. Nov 5
-    tbl_data["Date"] = tbl_data["Date"].apply(
-        lambda x: x.strftime("%b %d").lstrip("0").replace(" 0", " ")
-    )
+    tbl_data["Date"] = tbl_data["Date"].dt.strftime("%Y-%m-%d")
 
     # sort by date
     tbl_data_sorted = tbl_data.sort_values("Date")
 
     # get the last 3 dates
-    last_3_dates = tbl_data_sorted["Date"].drop_duplicates().tail(3)
-    df_last3 = tbl_data_sorted[tbl_data_sorted["Date"].isin(last_3_dates)]
+    last_3_dates = tbl_data["Date"].tail(3)
+    df_last3 = tbl_data_sorted[tbl_data["Date"].isin(last_3_dates)]
 
     # melt the data
     df_melted = df_last3.melt(id_vars="Date", var_name="Ticker", value_name="Value")
@@ -105,12 +104,18 @@ def process_dataframes(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     }
 
     # add values to the pivoted table
+    # totals = {"Ticker":"All (Total)"}
     for date in df_melted["Date"].unique():
         df_pivoted[date] = df_melted[df_melted["Date"] == date]["Value"].values
         df_pivoted[date] = [
             float(convert_accounting_str_format_to_float(x)) for x in df_pivoted[date]
         ]
-        df_pivoted[date] = df_pivoted[date]
+
+        # gather per-column totals
+        # totals = totals | {date: sum(df_pivoted[date])}
+
+    # add the total sum of totals to totals
+    # totals = totals | {"Total": sum([x for x in totals.values() if x != "All (Total)"])}
 
     # create a dataframe
     df_pivoted = pd.DataFrame(df_pivoted)
@@ -125,6 +130,12 @@ def process_dataframes(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     tbl_data["Ticker"] = tbl_data["Ticker"].apply(
         lambda x: tbl_legend.loc[tbl_legend["Ticker"] == x, "Entity"].values[0]
     )
+
+    # add the totals - I'm not sure if this is necessary, but I'll keep it in the code in case I use it
+    # the lines relevant to it are commented out above too
+    # tbl_data = pd.concat([tbl_data, pd.DataFrame(totals, index=[max(tbl_data.index) + 1])])
+
+    # rename the ticker column to entity
     tbl_data = tbl_data.rename(columns={"Ticker": "Entity"})
 
     return tbl_legend, tbl_data
@@ -132,3 +143,31 @@ def process_dataframes(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 
 def convert_accounting_str_format_to_float(value: str) -> float:
     return re.sub(r"\((.*?)\)", r"-\1", value.replace("-", "0.0").replace(",", ""))
+
+
+def return_consolidated_etf_tables() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    # get etf tables
+    log.info("Getting the ETF table from farside.co.uk")
+    tbl_legend, tbl_data = get_eth_etf_table()
+    total_flow = round(tbl_legend["Flow"].sum(), 2)
+    total_flow_3d = round(tbl_data["Total"].iloc[-3:].sum(), 2)
+    total_flow_last_recorded_day = round(tbl_data.iloc[:, 3].sum(), 2)
+
+    # summary table
+    summary_table = pd.DataFrame(
+        {
+            "Metric": [
+                "Total ETF Flow",
+                "Total ETF Flow over the last 3 days",
+                "Total ETF Flow on the last recorded day",
+            ],
+            "Value": [
+                total_flow,
+                total_flow_3d,
+                total_flow_last_recorded_day,
+            ],
+        }
+    )
+
+    # return the tables
+    return tbl_legend, tbl_data, summary_table

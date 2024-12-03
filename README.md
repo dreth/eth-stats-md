@@ -57,58 +57,64 @@ python main.py
 
 
 
+
 # ETH stats
 
-- UTC Timestamp: 2024-12-02T22:31:00Z
+UTC Timestamp: **2024-12-03T21:43:00Z**
 
 ## Price and supply
 
-Source: https://ultrasound.money
-
-- Current ETH price: 3611.82 USD
-- Average ETH price over 1 day: 3652.06 USD
-- Average ETH price over 7 days: 3576.71 USD
-- Average ETH price over 30 days: 3174.36 USD
-
-- Supply at merge: 120521039.39 ETH
-- Current supply: 120438611.75 ETH
-- Supply differential since merge: -82427.6400000006 ETH
-- Total inflation (%) since merge: -0.068%
+| Metric                          |     Value |
+|:--------------------------------|----------:|
+| Current ETH price               |      3620 |
+| 24h change (%)                  |         0 |
+| Average ETH price over 1 day    |      3610 |
+| Average ETH price over 7 days   |      3610 |
+| Average ETH price over 30 days  |      3212 |
+| Supply at merge                 | 120521039 |
+| Current supply                  | 120438466 |
+| Supply differential since merge |    -82574 |
+| Total inflation since merge (%) |         0 |
 
 ## ETF Flow (in millions of USD)
 
-- Total ETF Flow: 576.8 million USD
-- Total ETF Flow over the last 3 days: 35.7 million USD
-- Total ETF Flow on the last recorded day: 332.9 million USD
+### Summary
 
-Source: https://farside.co.uk/eth
-
-Full historical table: https://farside.co.uk/ethereum-etf-flow-all-data/
+| Metric                                  |   Value |
+|:----------------------------------------|--------:|
+| Total ETF Flow                          |   601   |
+| Total ETF Flow over the last 3 days     |   443.5 |
+| Total ETF Flow on the last recorded day |    48.4 |
 
 ### Basic ETF info
 
 | Entity    | Ticker   | Fee   | Seed     |    Flow |
 |:----------|:---------|:------|:---------|--------:|
-| Blackrock | ETHA     | 0.25% | 10.6     |  2103.4 |
-| Fidelity  | FETH     | 0.25% | 4.4      |   824.1 |
+| Blackrock | ETHA     | 0.25% | 10.6     |  2159.3 |
+| Fidelity  | FETH     | 0.25% | 4.4      |   844   |
 | Bitwise   | ETHW     | 0.20% | 2.5      |   391.6 |
 | 21 Shares | CETH     | 0.21% | 2.3      |    19.9 |
 | VanEck    | ETHV     | 0.20% | 10.2     |   115.7 |
-| Invesco   | QETH     | 0.25% | 1.1      |    27.6 |
+| Invesco   | QETH     | 0.25% | 1.1      |    20.4 |
 | Franklin  | EZET     | 0.19% | 2.7      |    37.1 |
-| Grayscale | ETHE     | 2.50% | 9,199.3* | -3365.8 |
+| Grayscale | ETHE     | 2.50% | 9,199.3* | -3410.2 |
 | Grayscale | ETH      | 0.15% | 1,022.5* |   423.2 |
 
 ### ETF Flow (last 3 days)
 
-| Entity    |   Nov 26 |   Nov 27 |   Nov 29 |   Total |
-|:----------|---------:|---------:|---------:|--------:|
-| Blackrock |     50.1 |      0   |    250.4 |   300.5 |
-| Fidelity  |     -1.7 |     38   |     79.1 |   115.4 |
-| Bitwise   |      0   |      1.6 |      0   |     1.6 |
-| 21 Shares |     -2.8 |      0   |      0   |    -2.8 |
-| VanEck    |      0   |     13.2 |      0   |    13.2 |
-| Invesco   |     -1.2 |      0   |      0   |    -1.2 |
-| Grayscale |    -20.1 |      0   |      0   |   -20.1 |
-| Grayscale |     16.3 |     37.3 |      3.4 |    57   |
-    
+| Entity      |   2024-11-27 |   2024-11-29 |   2024-12-02 |   Total |
+|:------------|-------------:|-------------:|-------------:|--------:|
+| Blackrock   |          0   |        250.4 |         55.9 |   306.3 |
+| Fidelity    |         38   |         79.1 |         19.9 |   137   |
+| Bitwise     |          1.6 |          0   |          0   |     1.6 |
+| VanEck      |         13.2 |          0   |          0   |    13.2 |
+| Invesco     |          0   |          0   |         -7.2 |    -7.2 |
+| Grayscale   |          0   |          0   |        -44.4 |   -44.4 |
+| Grayscale   |         37.3 |          3.4 |          0   |    40.7 |
+
+#### Sources
+
+- [ultrasound.money](https://ultrasound.money)
+- [farside.co.uk](https://farside.co.uk/eth)
+- [farside.co.uk ETH ETF full historical tables](https://farside.co.uk/ethereum-etf-flow-all-data/)
+
