@@ -85,15 +85,21 @@ def generate_ultrasound_df() -> tuple[pd.DataFrame, str]:
                 eth_avg_1d,
                 eth_avg_7d,
                 eth_avg_30d,
-                int(round(eth_supply_at_merge)),
-                int(round(eth_curr_supply)),
-                int(round(eth_supply_diff)),
+                int(round(eth_supply_at_merge, 1)),
+                int(round(eth_curr_supply, 1)),
+                int(round(eth_supply_diff, 1)),
                 round(eth_supply_diff / eth_supply_at_merge * 100, 3),
             ],
         }
     )
     
-    tbl["Value"] = tbl["Value"].astype(int)
+    def avoid_zeros(x):
+        x = f"{x:,.2f}"
+        if x[-3:] == ".00":
+            return x[:-3]
+        return x
+    
+    tbl["Value"] = tbl["Value"].astype(float).apply(avoid_zeros)
 
     # return the dataframe
     return tbl, timestamp
