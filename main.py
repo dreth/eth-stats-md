@@ -57,7 +57,7 @@ UTC Timestamp: **{timestamp}**
 - [farside.co.uk ETH ETF full historical tables](https://farside.co.uk/ethereum-etf-flow-all-data/)
 - [coinglass.com](https://coinglass.com/)
 
-##### [Previous comment](LINK_TO_PREV_COMMENT)
+##### [Previous post](LINK_TO_PREV_COMMENT)
 
 """
 
