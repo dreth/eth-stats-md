@@ -22,7 +22,7 @@ def generate_comment() -> str:
         tbl_data = tbl_data.to_markdown(index=False)
         summary_table = summary_table.to_markdown(index=False)
         ultrasound_summary = ultrasound_summary.to_markdown(index=False)
-        
+
     except Exception as e:
         log.error(f"An error occurred: {e}")
         return None
@@ -55,6 +55,9 @@ UTC Timestamp: **{timestamp}**
 - [ultrasound.money](https://ultrasound.money)
 - [farside.co.uk](https://farside.co.uk/eth)
 - [farside.co.uk ETH ETF full historical tables](https://farside.co.uk/ethereum-etf-flow-all-data/)
+- [coinglass.com](https://coinglass.com/)
+
+##### [Previous comment](LINK_TO_PREV_COMMENT)
 
 """
 
