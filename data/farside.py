@@ -150,7 +150,7 @@ def return_consolidated_etf_tables() -> tuple[pd.DataFrame, pd.DataFrame, pd.Dat
     log.info("Getting the ETF table from farside.co.uk")
     tbl_legend, tbl_data = get_eth_etf_table()
     total_flow = round(tbl_legend["Flow"].sum(), 2)
-    total_flow_3d = round(tbl_data["Total"].iloc[-3:].sum(), 2)
+    total_flow_3d = round(tbl_data["Total"].sum(), 2)
     total_flow_last_recorded_day = round(tbl_data.iloc[:, 3].sum(), 2)
 
     # summary table
