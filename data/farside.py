@@ -141,7 +141,9 @@ def process_dataframes(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
     return tbl_legend, tbl_data
 
 
-def convert_accounting_str_format_to_float(value: str) -> float:
+def convert_accounting_str_format_to_float(value: str | float) -> float:
+    if isinstance(value, float):
+        return value
     return re.sub(r"\((.*?)\)", r"-\1", value.replace("-", "0.0").replace(",", ""))
 
 
