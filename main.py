@@ -42,10 +42,6 @@ UTC Timestamp: **{timestamp}**
 
 {summary_table}
 
-### Basic ETF info
-
-{tbl_legend}
-
 ### ETF Flow (last 3 days)
 
 {tbl_data}
